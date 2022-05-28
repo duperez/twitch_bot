@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>demo1</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>demo1</name>
     <description>demo1</description>
     <properties>
@@ -58,6 +58,11 @@
             <groupId>org.twitter4j</groupId>
             <artifactId>twitter4j-core</artifactId>
             <version>4.0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.takke</groupId>
+            <artifactId>jp.takke.twitter4j-v2</artifactId>
+            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

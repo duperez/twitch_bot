@@ -11,8 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 public class StreamUpdate {
+
     List<StreamDiferences> streamDiferencesList;
     String changeDate;
+    String streamerName;
+
 
     public StreamUpdate(){
         streamDiferencesList = new ArrayList<>();

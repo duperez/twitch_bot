@@ -1,5 +1,6 @@
 package com.stream.bot.objects.stream;
 
+import com.stream.bot.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
@@ -11,54 +12,33 @@ public class StreamCompare {
     public static StreamUpdate getUpdates(Stream oldStream, Stream newStream){
         List<StreamDiferences> streamDiferences = new ArrayList<>();
 
-        log.info("Old game: {}", oldStream.getGameName());
-        log.info("New game: {}", newStream.getGameName());
-        log.info("----------------------------");
-        log.info("Old title: {}", oldStream.getTitle());
-        log.info("New title: {}", newStream.getTitle());
-        log.info("----------------------------");
-        log.info("Old status: {}", oldStream.getStatus());
-        log.info("New status: {}", newStream.getStatus());
-        log.info("----------------------------");
-        StreamDiferences gameStreamDiferences = null;
-        StreamDiferences titleStreamDiferences = null;
-        StreamDiferences statusStreamDiferences = null;
-        if (!Objects.equals(oldStream.getGameName(), newStream.getGameName())) {
-            log.info("setting new game");
-            gameStreamDiferences = new StreamDiferences();
-            gameStreamDiferences.setObjectChange("game");
-            gameStreamDiferences.setOldValue(oldStream.getGameName());
-            gameStreamDiferences.setNewValue(newStream.getGameName());
-        }
-        if (!Objects.equals(oldStream.getTitle(), newStream.getTitle())) {
-            log.info("setting new title");
-            titleStreamDiferences = new StreamDiferences();
-            titleStreamDiferences.setObjectChange("title");
-            titleStreamDiferences.setOldValue(oldStream.getTitle());
-            titleStreamDiferences.setNewValue(newStream.getTitle());
-        }
-        if (oldStream.getStatus() != oldStream.getStatus()) {
-            log.info("setting new status");
-            statusStreamDiferences = new StreamDiferences();
-            statusStreamDiferences.setObjectChange("status");
-            statusStreamDiferences.setOldValue(oldStream.getStatus().toString());
-            statusStreamDiferences.setNewValue(newStream.getStatus().toString());
+        if (oldStream.getStatus() != newStream.getStatus()) {
+            log.info("updated {} from {} to {}", "status", oldStream.getStatus().toString(), newStream.getStatus().toString());
+            streamDiferences.add(createNewDiference("status", oldStream.getStatus().toString(), newStream.getStatus().toString()));
+        } else {
+            log.info("keeping the same status {}", oldStream.getStatus().toString());
         }
 
+        if (!Objects.equals(oldStream.getTitle(), newStream.getTitle()) && !Objects.equals(newStream.getTitle(), "")) {
+            log.info("updated {} from {} to {}", "title", oldStream.getTitle(), newStream.getTitle());
+            streamDiferences.add(createNewDiference("title", oldStream.getTitle(), newStream.getTitle()));
+        } else {
+            log.info("keeping the same status {}", oldStream.getTitle());
+        }
 
-        if (gameStreamDiferences != null)
-            streamDiferences.add(gameStreamDiferences);
-        if (titleStreamDiferences != null)
-            streamDiferences.add(titleStreamDiferences);
-        if (statusStreamDiferences != null)
-            streamDiferences.add(statusStreamDiferences);
+        if (!Objects.equals(oldStream.getGameName(), newStream.getGameName()) && !Objects.equals(newStream.getGameName(), "")) {
+            log.info("updated {} from {} to {}", "game", oldStream.getGameName(), newStream.getGameName());
+            streamDiferences.add(createNewDiference("game", oldStream.getGameName(), newStream.getGameName()));
+        } else {
+            log.info("keeping the same game {}", oldStream.getGameName());
+        }
 
-
-        Locale brasil = new Locale("pt", "BR");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss", brasil);
-        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3"));
-
-        return new StreamUpdate(streamDiferences, dateFormat.format(new Date()));
+        return new StreamUpdate(streamDiferences, DateUtils.getLocalDate() , "");
     }
+
+    private static StreamDiferences createNewDiference(String itemChange, String oldValue, String newValue) {
+        return new StreamDiferences(itemChange, oldValue, newValue);
+    }
+
 
 }
