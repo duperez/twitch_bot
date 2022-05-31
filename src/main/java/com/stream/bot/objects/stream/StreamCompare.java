@@ -1,5 +1,6 @@
 package com.stream.bot.objects.stream;
 
+import com.stream.bot.objects.dto.StreamDto;
 import com.stream.bot.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,7 +10,7 @@ import java.util.*;
 @Slf4j
 public class StreamCompare {
 
-    public static StreamUpdate getUpdates(Stream oldStream, Stream newStream){
+    public static StreamUpdate getUpdates(StreamDto oldStream, StreamDto newStream){
         List<StreamDiferences> streamDiferences = new ArrayList<>();
 
         if (oldStream.getStatus() != newStream.getStatus()) {
@@ -26,11 +27,11 @@ public class StreamCompare {
             log.info("keeping the same status {}", oldStream.getTitle());
         }
 
-        if (!Objects.equals(oldStream.getGameName(), newStream.getGameName()) && !Objects.equals(newStream.getGameName(), "")) {
-            log.info("updated {} from {} to {}", "game", oldStream.getGameName(), newStream.getGameName());
-            streamDiferences.add(createNewDiference("game", oldStream.getGameName(), newStream.getGameName()));
+        if (!Objects.equals(oldStream.getGame(), newStream.getGame()) && !Objects.equals(newStream.getGame(), "")) {
+            log.info("updated {} from {} to {}", "game", oldStream.getGame(), newStream.getGame());
+            streamDiferences.add(createNewDiference("game", oldStream.getGame(), newStream.getGame()));
         } else {
-            log.info("keeping the same game {}", oldStream.getGameName());
+            log.info("keeping the same game {}", oldStream.getGame());
         }
 
         return new StreamUpdate(streamDiferences, DateUtils.getLocalDate() , "");

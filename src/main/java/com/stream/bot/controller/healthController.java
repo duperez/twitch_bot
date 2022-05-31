@@ -24,10 +24,10 @@ public class healthController {
         return "pong";
     }
 
-    @GetMapping("health/check")
-    @Scheduled(fixedRate = 10000)
-    public void autoSetter() throws IOException {
-        log.info("checking health");
-        healthService.checkHealth();
-    }
+    //@GetMapping("health/check")
+    //@Scheduled(fixedRate = 10000)
+    //public void autoSetter() throws IOException {
+    //    log.info("checking health");
+    //    healthService.checkHealth();
+    //}
 }
