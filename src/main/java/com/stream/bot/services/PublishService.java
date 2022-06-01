@@ -32,14 +32,11 @@ public class PublishService {
         StreamDto streamDto = getLastUpdate(stream);
 
         if (streamDto != null) {
-            log.info("actual {} = {}", "title", streamDto.getTitle());
-            log.info("actual {} = {}", "game", streamDto.getGame());
-            log.info("actual {} = {}", "status", streamDto.getStatus());
             log.info("checking for updates");
             StreamUpdate streamUpdate = StreamCompare.getUpdates(streamDto, streamValue);
             streamUpdate.setStreamerName(streamValue.getStreamer());
             if (!streamUpdate.getStreamDiferencesList().isEmpty()) {
-                streamRepository.save(streamDto);
+                streamRepository.save(streamValue);
             }
         } else {
             log.info("there is no previous data, saving new data");
