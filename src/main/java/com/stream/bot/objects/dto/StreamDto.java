@@ -20,7 +20,8 @@ public class StreamDto {
     Long id;
 
     String streamer;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.PERSIST)
+    @JoinColumn(name="status_list")
     List<StatusDto> statusDtoList = new ArrayList<>();
     String status = "ONLINE";
 
