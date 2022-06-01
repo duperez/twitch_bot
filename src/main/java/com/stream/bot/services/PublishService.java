@@ -1,15 +1,15 @@
 package com.stream.bot.services;
 
+import com.stream.bot.objects.dto.StatusDto;
 import com.stream.bot.objects.dto.StreamDto;
-import com.stream.bot.objects.stream.Stream;
-import com.stream.bot.objects.stream.StreamCompare;
-import com.stream.bot.objects.stream.StreamUpdate;
+import com.stream.bot.objects.stream.TwitchApiResponses.Stream;
+import com.stream.bot.objects.stream.TwitchApiResponses.StreamCompare;
+import com.stream.bot.objects.stream.TwitchApiResponses.StreamUpdate;
 import com.stream.bot.repositories.StreamRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import twitter4j.TwitterException;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,28 +28,28 @@ public class PublishService {
     StreamRepository streamRepository;
 
     public void shareUpdates(String stream) throws IOException {
-        StreamDto streamValue = new StreamDto(getStream(stream));
+        StatusDto streamValue = new StatusDto(getStream(stream));
         StreamDto streamDto = getLastUpdate(stream);
 
-        if (streamDto != null) {
+        if (!streamDto.getStatusDtoList().isEmpty()) {
             log.info("checking for updates");
-            StreamUpdate streamUpdate = StreamCompare.getUpdates(streamDto, streamValue);
-            streamUpdate.setStreamerName(streamValue.getStreamer());
-            if (!streamUpdate.getStreamDiferencesList().isEmpty()) {
-                streamRepository.save(streamValue);
+            if (!streamDto.getStatusDtoList().get(streamDto.getStatusDtoList().size() - 1).equals(streamValue)) {
+                streamDto.addNewStatus(streamValue);
+                streamRepository.save(streamDto);
             }
         } else {
             log.info("there is no previous data, saving new data");
-            streamRepository.save(streamValue);
+            streamDto.addNewStatus(streamValue);
+            streamRepository.save(streamDto);
         }
     }
 
     public StreamDto getLastUpdate(String stream) {
         List<StreamDto> lastUpdateDto = streamRepository.getLastUpdate(stream, PageRequest.of(0,1));
-        if (!lastUpdateDto.isEmpty()) {
+        if (!lastUpdateDto.isEmpty() & lastUpdateDto.get(0).getStatus().equals("ONLINE")) {
             return lastUpdateDto.get(0);
         }
-        return null;
+        return new StreamDto();
     }
 
     public Stream getStream(String streamer) throws IOException {

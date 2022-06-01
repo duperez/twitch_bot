@@ -1,9 +1,11 @@
 package com.stream.bot.objects.dto;
 
-import com.stream.bot.objects.stream.Stream;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,23 +14,25 @@ import javax.persistence.*;
 @Entity
 @Data
 public class StreamDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id",unique=true, nullable = false)
     Long id;
-    Long StreamId;
-    String title;
-    String game;
     String streamer;
-    Boolean status;
-    String date;
+    @OneToMany
+    List<StatusDto> statusDtoList;
+    String status = "ONLINE";
 
-    public StreamDto(Stream stream) {
-        this.title = stream.getTitle();
-        this.game = stream.getGameName();
-        this.streamer = stream.getUserName();
-        this.status = stream.getStatus();
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Id
+    public Long getId() {
+        return id;
+    }
+
+    public void addNewStatus(StatusDto statusDto) {
+        statusDtoList.add(statusDto);
+        if (!statusDto.getStatus())
+            status = "OFFLINE";
     }
 
 }

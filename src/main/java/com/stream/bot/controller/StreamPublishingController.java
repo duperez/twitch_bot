@@ -1,7 +1,7 @@
 package com.stream.bot.controller;
 
-import com.stream.bot.objects.stream.StreamDiferences;
-import com.stream.bot.objects.stream.StreamUpdate;
+import com.stream.bot.objects.stream.TwitchApiResponses.StreamDiferences;
+import com.stream.bot.objects.stream.TwitchApiResponses.StreamUpdate;
 import com.stream.bot.services.PublishService;
 import com.stream.bot.services.TwitterService;
 import com.stream.bot.utils.DateUtils;

@@ -1,7 +1,7 @@
 package com.stream.bot.utils;
 
-import com.stream.bot.objects.stream.StreamDiferences;
-import com.stream.bot.objects.stream.StreamUpdate;
+import com.stream.bot.objects.stream.TwitchApiResponses.StreamDiferences;
+import com.stream.bot.objects.stream.TwitchApiResponses.StreamUpdate;
 import org.apache.tomcat.util.buf.StringUtils;
 
 import java.util.stream.Collectors;

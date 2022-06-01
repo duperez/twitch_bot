@@ -1,16 +1,15 @@
-package com.stream.bot.objects.stream;
+package com.stream.bot.objects.stream.TwitchApiResponses;
 
-import com.stream.bot.objects.dto.StreamDto;
+import com.stream.bot.objects.dto.StatusDto;
 import com.stream.bot.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
 public class StreamCompare {
 
-    public static StreamUpdate getUpdates(StreamDto oldStream, StreamDto newStream){
+    public static StreamUpdate getUpdates(StatusDto oldStream, StatusDto newStream){
         List<StreamDiferences> streamDiferences = new ArrayList<>();
 
         if (oldStream.getStatus() != newStream.getStatus()) {

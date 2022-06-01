@@ -1,9 +1,8 @@
 package com.stream.bot.services;
 
-import com.stream.bot.objects.dto.StreamDto;
-import com.stream.bot.objects.stream.Stream;
-import com.stream.bot.objects.stream.StreamCompare;
-import com.stream.bot.objects.stream.StreamUpdate;
+import com.stream.bot.objects.dto.StatusDto;
+import com.stream.bot.objects.stream.TwitchApiResponses.Stream;
+import com.stream.bot.objects.stream.TwitchApiResponses.StreamUpdate;
 import com.stream.bot.repositories.StreamRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ public class StreamUpdateService {
             streamUpdate.setStreamerName(stream.getUserName());
         } else {
             log.info("Application is starting, setting stream values");
-            streamRepository.save(new StreamDto(stream));
+            //streamRepository.save(new StatusDto(stream));
         }
         actualStream = stream;
 

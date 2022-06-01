@@ -1,4 +1,4 @@
-package com.stream.bot.objects.stream;
+package com.stream.bot.objects.stream.TwitchApiResponses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

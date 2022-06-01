@@ -1,4 +1,4 @@
-package com.stream.bot.objects.stream;
+package com.stream.bot.objects.stream.TwitchApiResponses;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

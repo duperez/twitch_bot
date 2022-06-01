@@ -1,7 +1,7 @@
 package com.stream.bot.controller;
 
 
-import com.stream.bot.objects.stream.Stream;
+import com.stream.bot.objects.stream.TwitchApiResponses.Stream;
 import com.stream.bot.services.StreamRequestService;
 import com.stream.bot.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
