@@ -4,6 +4,7 @@ import com.stream.bot.objects.stream.TwitchApiResponses.Stream;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -32,8 +33,8 @@ public class StatusDto {
     }
 
     public Boolean equals(StatusDto statusDto) {
-        return this.title == statusDto.getTitle() &&
-        this.game == statusDto.getGame() &&
+        return Objects.equals(this.title, statusDto.getTitle()) &&
+                Objects.equals(this.game, statusDto.getGame()) &&
         this.status == statusDto.getStatus();
     }
 

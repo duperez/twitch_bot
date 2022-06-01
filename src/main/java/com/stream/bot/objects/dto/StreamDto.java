@@ -2,9 +2,7 @@ package com.stream.bot.objects.dto;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -14,25 +12,20 @@ import java.util.List;
 @Entity
 @Data
 public class StreamDto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id",unique=true, nullable = false)
     Long id;
+
     String streamer;
     @OneToMany
     List<StatusDto> statusDtoList;
     String status = "ONLINE";
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
-    public Long getId() {
-        return id;
-    }
 
     public void addNewStatus(StatusDto statusDto) {
         statusDtoList.add(statusDto);
         if (!statusDto.getStatus())
             status = "OFFLINE";
     }
-
 }
