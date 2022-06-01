@@ -3,6 +3,7 @@ package com.stream.bot.objects.dto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,7 +21,7 @@ public class StreamDto {
 
     String streamer;
     @OneToMany
-    List<StatusDto> statusDtoList;
+    List<StatusDto> statusDtoList = new ArrayList<>();
     String status = "ONLINE";
 
     public void addNewStatus(StatusDto statusDto) {

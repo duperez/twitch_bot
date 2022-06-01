@@ -31,8 +31,6 @@ public class PublishService {
     public void shareUpdates(String stream) throws IOException {
         StatusDto streamValue = new StatusDto(getStream(stream));
         StreamDto streamDto = getLastUpdate(stream);
-        if (streamDto.getStatusDtoList() == null)
-            streamDto.setStatusDtoList(new ArrayList<>());
         if (!streamDto.getStatusDtoList().isEmpty()) {
             log.info("checking for updates");
             if (!streamDto.getStatusDtoList().get(streamDto.getStatusDtoList().size() - 1).equals(streamValue)) {
