@@ -27,12 +27,14 @@ public class PublishService {
     @Autowired
     StreamRepository streamRepository;
 
-    StreamDto streamDto = null;
-
     public void shareUpdates(String stream) throws IOException {
         StreamDto streamValue = new StreamDto(getStream(stream));
         StreamDto streamDto = getLastUpdate(stream);
+
         if (streamDto != null) {
+            log.info("actual {} = {}", "title", streamDto.getTitle());
+            log.info("actual {} = {}", "game", streamDto.getGame());
+            log.info("actual {} = {}", "status", streamDto.getStatus());
             log.info("checking for updates");
             StreamUpdate streamUpdate = StreamCompare.getUpdates(streamDto, streamValue);
             streamUpdate.setStreamerName(streamValue.getStreamer());
@@ -40,6 +42,7 @@ public class PublishService {
                 streamRepository.save(streamDto);
             }
         } else {
+            log.info("there is no previous data, saving new data");
             streamRepository.save(streamValue);
         }
     }
