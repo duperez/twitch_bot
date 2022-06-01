@@ -46,7 +46,7 @@ public class PublishService {
 
     public StreamDto getLastUpdate(String stream) {
         List<StreamDto> lastUpdateDto = streamRepository.getLastUpdate(stream, PageRequest.of(0,1));
-        if (!lastUpdateDto.isEmpty() & lastUpdateDto.get(0).getStatus().equals("ONLINE")) {
+        if (!lastUpdateDto.isEmpty() && lastUpdateDto.get(0).getStatus().equals("ONLINE")) {
             return lastUpdateDto.get(0);
         }
         return new StreamDto();
