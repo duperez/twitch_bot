@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +31,8 @@ public class PublishService {
     public void shareUpdates(String stream) throws IOException {
         StatusDto streamValue = new StatusDto(getStream(stream));
         StreamDto streamDto = getLastUpdate(stream);
-
+        if (streamDto.getStatusDtoList() == null)
+            streamDto.setStatusDtoList(new ArrayList<>());
         if (!streamDto.getStatusDtoList().isEmpty()) {
             log.info("checking for updates");
             if (!streamDto.getStatusDtoList().get(streamDto.getStatusDtoList().size() - 1).equals(streamValue)) {
@@ -46,7 +48,7 @@ public class PublishService {
 
     public StreamDto getLastUpdate(String stream) {
         List<StreamDto> lastUpdateDto = streamRepository.getLastUpdate(stream, PageRequest.of(0,1));
-        if (!lastUpdateDto.isEmpty() && lastUpdateDto.get(0).getStatus().equals("ONLINE")) {
+        if (!lastUpdateDto.isEmpty() && lastUpdateDto.get(0).getStatus() != null  && lastUpdateDto.get(0).getStatus().equals("ONLINE")) {
             return lastUpdateDto.get(0);
         }
         return new StreamDto();
