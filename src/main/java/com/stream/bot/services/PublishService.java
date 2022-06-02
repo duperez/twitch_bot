@@ -38,10 +38,12 @@ public class PublishService {
                 streamRepository.save(streamDto);
             }
         } else {
-            log.info("there is no previous data, saving new data");
-            streamDto.addNewStatus(streamValue);
-            streamDto.setStreamer(stream);
-            streamRepository.save(streamDto);
+            log.info("there is no previous data, checking if need to save new data");
+            if (streamValue.getStatus()) {
+                streamDto.addNewStatus(streamValue);
+                streamDto.setStreamer(stream);
+                streamRepository.save(streamDto);
+            }
         }
     }
 
