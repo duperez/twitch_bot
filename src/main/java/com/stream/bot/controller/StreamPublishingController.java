@@ -31,7 +31,7 @@ public class StreamPublishingController {
     TwitterService twitterService;
 
     @GetMapping("stream/autoPublish")
-    @Scheduled(fixedRate = 10000)
+    //@Scheduled(fixedRate = 10000)
     public void streamTwitch() throws IOException, TwitterException {
         publishService.shareUpdates("Cellbit");
     }

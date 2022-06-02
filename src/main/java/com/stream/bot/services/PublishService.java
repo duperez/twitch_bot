@@ -40,6 +40,7 @@ public class PublishService {
         } else {
             log.info("there is no previous data, saving new data");
             streamDto.addNewStatus(streamValue);
+            streamDto.setStreamer(stream);
             streamRepository.save(streamDto);
         }
     }
