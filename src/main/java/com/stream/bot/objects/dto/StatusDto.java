@@ -33,8 +33,10 @@ public class StatusDto {
     }
 
     public Boolean equals(StatusDto statusDto) {
-        return Objects.equals(this.title, statusDto.getTitle()) &&
-                Objects.equals(this.game, statusDto.getGame()) &&
+        this.title = this.title == null ? "" : this.title;
+        this.game = this.game == null ? "" : this.game;
+        return this.title.equals(statusDto.getTitle()) &&
+                this.game.equals(statusDto.getGame()) &&
         this.status == statusDto.getStatus();
     }
 

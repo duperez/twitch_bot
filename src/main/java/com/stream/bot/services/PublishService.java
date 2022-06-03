@@ -34,8 +34,11 @@ public class PublishService {
         if (!streamDto.getStatusDtoList().isEmpty()) {
             log.info("checking for updates");
             if (!streamDto.getStatusDtoList().get(streamDto.getStatusDtoList().size() - 1).equals(streamValue)) {
+                log.info("updated found");
                 streamDto.addNewStatus(streamValue);
-                streamRepository.save(streamDto);
+                streamRepository.saveAndFlush(streamDto);
+            } else {
+                log.info("there is no new update");
             }
         } else {
             log.info("there is no previous data, checking if need to save new data");
