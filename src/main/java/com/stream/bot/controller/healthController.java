@@ -1,6 +1,6 @@
 package com.stream.bot.controller;
 
-import com.stream.bot.services.HealthService;
+import com.stream.bot.services.interfaces.HealthServiceInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -16,7 +16,7 @@ import java.io.IOException;
 public class healthController {
 
     @Autowired
-    HealthService healthService;
+    HealthServiceInterface healthServiceImp;
 
     @GetMapping("ping")
     public String ping(){
@@ -28,6 +28,6 @@ public class healthController {
     @Scheduled(fixedRate = 10000)
     public void autoSetter() throws IOException {
         log.info("checking health");
-        healthService.checkHealth();
+        healthServiceImp.checkHealth();
     }
 }

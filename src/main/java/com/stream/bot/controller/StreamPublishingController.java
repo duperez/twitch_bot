@@ -2,8 +2,8 @@ package com.stream.bot.controller;
 
 import com.stream.bot.objects.stream.TwitchApiResponses.StreamDiferences;
 import com.stream.bot.objects.stream.TwitchApiResponses.StreamUpdate;
-import com.stream.bot.services.PublishService;
-import com.stream.bot.services.TwitterService;
+import com.stream.bot.services.interfaces.PublishServiceInterface;
+import com.stream.bot.services.interfaces.TwitterServiceInterface;
 import com.stream.bot.utils.DateUtils;
 import com.stream.bot.utils.TwiiterUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +25,10 @@ import java.util.*;
 public class StreamPublishingController {
 
     @Autowired
-    PublishService publishService;
+    PublishServiceInterface publishService;
 
     @Autowired
-    TwitterService twitterService;
+    TwitterServiceInterface twitterService;
 
     @GetMapping("stream/autoPublish")
     @Scheduled(fixedRate = 10000)

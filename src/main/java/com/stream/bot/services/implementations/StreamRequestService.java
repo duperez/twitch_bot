@@ -1,4 +1,4 @@
-package com.stream.bot.services;
+package com.stream.bot.services.implementations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.OkHttpClient;
@@ -6,6 +6,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.stream.bot.objects.stream.TwitchApiResponses.Stream;
 import com.stream.bot.objects.stream.TwitchApiResponses.StreamList;
+import com.stream.bot.services.interfaces.StreamRequestServiceInterface;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 @Configuration("stream")
 @Service
-public class StreamRequestService {
+public class StreamRequestService implements StreamRequestServiceInterface {
 
      @Value("${auth}")
      String auth;

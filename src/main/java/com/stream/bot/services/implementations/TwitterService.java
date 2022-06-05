@@ -1,5 +1,6 @@
-package com.stream.bot.services;
+package com.stream.bot.services.implementations;
 
+import com.stream.bot.services.interfaces.TwitterServiceInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,7 @@ import twitter4j.conf.ConfigurationBuilder;
 @Slf4j
 @Configuration("twitter")
 @Service
-public class TwitterService {
+public class TwitterService implements TwitterServiceInterface {
 
     @Value("${consumer_key}")
     String consumerKey;
